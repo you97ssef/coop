@@ -1,12 +1,13 @@
 using api.Models;
+using api.Dtos;
 
 namespace api.Interfaces;
 
-interface IConversationRepository
+public interface IConversationRepository
 {
     Task<Conversation> GetConversation(string id);
     Task<IEnumerable<Conversation>> GetConversations();
-    Task<bool> CreateConversation(string topic, string label);
-    Task<bool> UpdateConversation(string id, string topic, string label);
+    Task<Conversation> CreateConversation(NewConversation newConversation);
+    Task<bool> UpdateConversation(string id, NewConversation newConversation);
     Task<bool> DeleteConversation(string id);
 }

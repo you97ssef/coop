@@ -1,8 +1,7 @@
 namespace api.Models;
 
-class Message
+public class Message : Model
 {
-    public string? Id { get; set; }
     public string? Content { get; set; }
     public string? Member_id { get; set; }
     public string? Conversation_id { get; set; }

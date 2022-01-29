@@ -2,7 +2,7 @@ using api.Models;
 
 namespace api.Interfaces;
 
-interface IMemberRepository
+public interface IMemberRepository
 {
     Task<Member> GetMember(string id);
     Task<IEnumerable<Member>> GetMembers();

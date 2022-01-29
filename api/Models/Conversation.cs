@@ -1,8 +1,7 @@
 namespace api.Models;
 
-class Conversation
+public class Conversation : Model
 {
-    public string? Id { get; set; }
     public string? Label { get; set; }
     public string? Topic { get; set; }
     public DateTime Created_at { get; set; }

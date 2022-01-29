@@ -2,7 +2,7 @@ using api.Models;
 
 namespace api.Interfaces;
 
-interface IMessageRepository
+public interface IMessageRepository
 {
     Task<Message> GetMessage(string id);
     Task<IEnumerable<Message>> GetConversationMessages(string conversationId);
