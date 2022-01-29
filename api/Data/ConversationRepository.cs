@@ -8,43 +8,30 @@ namespace api.Data;
 
 public class ConversationRepository : MongoService<Conversation>, IConversationRepository
 {
-    public ConversationRepository(IOptions<DatabaseSettings> databaseSettings) : base(databaseSettings)
+    public ConversationRepository(IOptions<DatabaseSettings> databaseSettings) : base(databaseSettings) { }
+
+    public async Task Add(Conversation node)
     {
+        await this.CreateAsync(node);
     }
 
-    public async Task<Conversation> CreateConversation(NewConversation newConversation)
+    public async Task Remove(Conversation node)
     {
-        var now = DateTime.Now;
-        
-        var conversation = new Conversation{
-            Created_at = now,
-            Modified_at = now,
-            Label = newConversation.Label,
-            Topic = newConversation.Topic
-        };
-
-        await this.CreateAsync(conversation);
-
-        return conversation;
+        await this.RemoveAsync(node.Id!);
     }
 
-    public Task<bool> DeleteConversation(string id)
+    public async Task<Conversation?> Get(string id)
     {
-        throw new NotImplementedException();
+        return await this.GetAsync(id);
     }
 
-    public Task<Conversation> GetConversation(string id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public async Task<IEnumerable<Conversation>> GetConversations()
+    public async Task<IEnumerable<Conversation>> GetAll()
     {
         return await this.GetAsync();
     }
 
-    public Task<bool> UpdateConversation(string id, NewConversation newConversation)
+    public async Task Update(Conversation node)
     {
-        throw new NotImplementedException();
+        await this.UpdateAsync(node.Id!, node);
     }
 }
