@@ -6,7 +6,7 @@ using api.Models;
 namespace api.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("channels")]
 public class ConversationsController : ControllerBase
 {
     private readonly IConversationRepository _repository;

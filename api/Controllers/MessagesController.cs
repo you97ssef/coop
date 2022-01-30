@@ -6,7 +6,7 @@ using api.Models;
 namespace api.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("channels/{channel_id}/posts")]
 public class MessagesController : ControllerBase
 {
     private readonly IMessageRepository _repository;
@@ -17,7 +17,7 @@ public class MessagesController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post(NewMessage newMessage)
+    public async Task<IActionResult> Post(string channel_id, NewMessage newMessage)
     {
         var now = DateTime.Now;
 
@@ -26,7 +26,7 @@ public class MessagesController : ControllerBase
             Created_at = now,
             Modified_at = now,
             Content = newMessage.Content,
-            Conversation_id = newMessage.Conversation_id,
+            Conversation_id = channel_id,
             Member_id = newMessage.Member_id
         };
 
@@ -35,14 +35,8 @@ public class MessagesController : ControllerBase
         return Ok(message);
     }
 
-    [HttpGet]
-    public async Task<IActionResult> Get()
-    {
-        return Ok(await _repository.GetAll());
-    }
-
     [HttpGet("{id}")]
-    public async Task<IActionResult> Get(string id)
+    public async Task<IActionResult> Get(string channel_id, string id)
     {
         var message = await _repository.Get(id);
 
@@ -52,7 +46,7 @@ public class MessagesController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Put(string id, string newMessage)
+    public async Task<IActionResult> Put(string channel_id, string id, string newMessage)
     {
         var message = await _repository.Get(id);
 
@@ -67,7 +61,7 @@ public class MessagesController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(string id)
+    public async Task<IActionResult> Delete(string channel_id, string id)
     {
         var message = await _repository.Get(id);
 
@@ -78,10 +72,10 @@ public class MessagesController : ControllerBase
         return NoContent();
     }
 
-    [HttpGet("conv/{conversation_id}")]
-    public async Task<IActionResult> GetConversation(string conversation_id)
+    [HttpGet]
+    public async Task<IActionResult> GetConversation(string channel_id)
     {
-        var messages = await _repository.GetConversationMessages(conversation_id);
+        var messages = await _repository.GetConversationMessages(channel_id);
 
         if (messages is null) return NotFound();
 
