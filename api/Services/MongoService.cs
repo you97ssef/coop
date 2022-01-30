@@ -7,7 +7,7 @@ namespace api.Services;
 
 public class MongoService<T> where T : Model
 {
-    private readonly IMongoCollection<T> _collection;
+    protected readonly IMongoCollection<T> _collection;
 
     public MongoService(IOptions<DatabaseSettings> databaseSettings)
     {
