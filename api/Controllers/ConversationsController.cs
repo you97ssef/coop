@@ -2,11 +2,13 @@ using Microsoft.AspNetCore.Mvc;
 using api.Interfaces;
 using api.Dtos;
 using api.Models;
+using api.Filters;
 
 namespace api.Controllers;
 
 [ApiController]
 [Route("channels")]
+[ApiKey]
 public class ConversationsController : ControllerBase
 {
     private readonly IConversationRepository _repository;

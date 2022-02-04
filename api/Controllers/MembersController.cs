@@ -2,11 +2,13 @@ using Microsoft.AspNetCore.Mvc;
 using api.Interfaces;
 using api.Dtos;
 using api.Models;
+using api.Filters;
 
 namespace api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
+[ApiKey]
 public class MembersController : ControllerBase
 {
     private readonly IMemberRepository _memberRepo;
