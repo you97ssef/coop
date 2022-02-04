@@ -2,11 +2,13 @@ using Microsoft.AspNetCore.Mvc;
 using api.Interfaces;
 using api.Dtos;
 using api.Models;
+using api.Filters;
 
 namespace api.Controllers;
 
 [ApiController]
 [Route("channels/{channel_id}/posts")]
+[ApiKey]
 public class MessagesController : ControllerBase
 {
     private readonly IMessageRepository _repository;
